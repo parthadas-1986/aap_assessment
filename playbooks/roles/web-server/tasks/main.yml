@@ -1,4 +1,4 @@
-
+---
 - name: Install NGINX
   apt:
     name: nginx
@@ -30,9 +30,9 @@
     enabled: true
 
 handlers:
-- name: restart nginx
-  service:
-    name: nginx
-    state: restarted
+  - name: restart nginx
+    service:
+      name: nginx
+      state: restarted
 
   
