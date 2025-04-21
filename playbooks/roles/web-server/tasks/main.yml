@@ -29,10 +29,10 @@
     state: started
     enabled: true
 
-- handlers:
-  - name: restart nginx
-    service:
-      name: nginx
-      state: restarted
+handlers:
+- name: restart nginx
+  service:
+    name: nginx
+    state: restarted
 
   
