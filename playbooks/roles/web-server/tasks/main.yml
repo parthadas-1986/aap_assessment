@@ -29,7 +29,7 @@
     state: started
     enabled: true
 
-handlers:
+- handlers:
   - name: restart nginx
     service:
       name: nginx
