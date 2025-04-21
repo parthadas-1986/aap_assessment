@@ -1,5 +1,7 @@
 ---
-host: 
+host: web
+roles_path: ../roles
 var_files:
 
 roles:
+  - web-server
