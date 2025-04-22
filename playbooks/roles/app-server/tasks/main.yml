@@ -4,10 +4,6 @@
     name: '*'
     state: latest
 
-- name: Update apt cache
-  apt:
-    update_cache: yes
-
 - name: Install dependencies
   apt:
     name:
@@ -15,6 +11,12 @@
       - python3-pip      
       - python3-venv
     state: present
+    update_cache: yes
+
+- name: Install Gunicorn if not already installed
+  pip:
+    name: gunicorn
+    executable: pip3
 
 # - name: Create and Activate Virtual Environment
 #   command: "{{ item }}"
@@ -24,26 +26,51 @@
 #     - pip install Flask>=2.2.5
 
 
-# - name: Install Python dependencies from requirements.txt
-#   pip:
-#     requirements: "flask_app/requirements.txt"
+- name: Install Flask using pip3
+  pip:
+    name: Flask
+    state: present
+    executable: pip3
 
-- name: Create a systemd service for Flask app
+- name: Copy Flask app to the target machine
   copy:
+    src: templates/flask_app.j2
+    dest: /home/ubuntu/myflaskapp/
+    owner: ubuntu
+    group: ubuntu
+    mode: '0755'
+
+- name: Create a systemd service unit file for Flask app
+  template:
+    src: flask_app.j2
     dest: /etc/systemd/system/flask_app.service
-    content: |
-      [Unit]
-      Description=Flask App
-      After=network.target
+    mode: '0644'
 
-      [Service]
-      User=ubuntu
-      WorkingDirectory=flask_app
-      ExecStart=/usr/bin/python3 flask_app//app.py
-      Restart=always
+- name: Reload systemd to pick up the new service
+  systemd:
+    daemon_reload: yes
 
-      [Install]
-      WantedBy=multi-user.target
+- name: Enable the Flask app service
+  systemd:
+    name: flask_app.service
+    enabled: yes
+
+# - name: Create a systemd service for Flask app
+#   copy:
+#     dest: /etc/systemd/system/flask_app.service
+#     content: |
+#       [Unit]
+#       Description=Flask App
+#       After=network.target
+
+#       [Service]
+#       User=ubuntu
+#       WorkingDirectory=flask_app
+#       ExecStart=/usr/bin/python3 flask_app//app.py
+#       Restart=always
+
+#       [Install]
+#       WantedBy=multi-user.target
 
 - name: Enable and start Flask app service
   systemd:
