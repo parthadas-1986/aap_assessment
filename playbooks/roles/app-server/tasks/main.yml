@@ -16,9 +16,17 @@
       - python3-venv
     state: present
 
-- name: Install Python dependencies from requirements.txt
-  pip:
-    requirements: "flask_app/requirements.txt"
+- name: Create and Activate Virtual Environment
+  cmd: "{{ item }}""
+  loop: 
+    - python3 -m venv myenv
+    - source myenv/bin/activate
+    - pip install Flask==2.0.2
+
+
+# - name: Install Python dependencies from requirements.txt
+#   pip:
+#     requirements: "flask_app/requirements.txt"
 
 - name: Create a systemd service for Flask app
   copy:
