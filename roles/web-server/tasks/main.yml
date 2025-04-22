@@ -1,10 +1,10 @@
 ---
 - name: Install NGINX
   apt:
-    name: nginx
+    name: "{{ install_package }}"
     state: present
     update_cache: yes
-  notify: restart nginx
+  notify: restart "{{ install_package }}"
 
 - name: Create website directory
   file:
@@ -17,11 +17,11 @@
     src: files/index.html  # Path to your index.html
     dest: /var/www/html/index.html
 
-- name: Deploy nginx config
+- name: Deploy "{{ install_package }}" config
   template:
     src: templates/nginx.conf.j2
-    dest: /etc/nginx/nginx.conf
-  notify: restart nginx
+    dest: /etc/{{ install_package }}/nginx.conf
+  notify: restart "{{ install_package }}"
 
 # - name: Ensure NGINX is running
 #   service:
