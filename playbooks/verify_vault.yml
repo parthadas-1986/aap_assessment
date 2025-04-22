@@ -6,7 +6,7 @@
   tasks:
     - name: Show encrypted web admin password
       debug:
-        var: secrets.web_admin_password 
+        var: secrets.web_admin_passwordxx 
     - name: Show encrypted db conection string
       debug:
         var: secrets.db_connection_string
