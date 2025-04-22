@@ -16,12 +16,12 @@
       - python3-venv
     state: present
 
-- name: Create and Activate Virtual Environment
-  command: "{{ item }}"
-  with_items: 
-    - python3 -m venv myenv
-    - source myenv/bin/activate
-    - pip install Flask>=2.2.5
+# - name: Create and Activate Virtual Environment
+#   command: "{{ item }}"
+#   with_items: 
+#     - python3 -m venv myenv
+#     - source myenv/bin/activate
+#     - pip install Flask>=2.2.5
 
 
 # - name: Install Python dependencies from requirements.txt
