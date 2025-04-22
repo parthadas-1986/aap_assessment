@@ -12,17 +12,22 @@
       - python3-venv
     state: present
     update_cache: yes
-    
+
 - name: Create and Activate Virtual Environment
   command: "{{ item }}"
-  with_items: 
+  with_items:
     # - python3 -m venv myenv
     - source myenv/bin/activate
+    - pip3 install gunicorn
 
-- name: Install Gunicorn if not already installed
-  pip:
-    name: gunicorn
-    executable: pip3
+# - name: Install dependencies in virtualenv
+#   shell: |
+#     source myenv/bin/activate
+
+# - name: Install Gunicorn if not already installed
+#   pip:
+#     name: gunicorn
+#     executable: pip3
 
 # - name: Create and Activate Virtual Environment
 #   command: "{{ item }}"
