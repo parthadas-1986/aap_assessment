@@ -10,6 +10,6 @@
         var: secrets.web_admin_password 
     - name: Show encrypted db conection string
       debug:
-        var: secrets.web_admin_password
+        var: secrets.db_connection_string
       
     
