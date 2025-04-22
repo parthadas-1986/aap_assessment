@@ -17,8 +17,8 @@
     state: present
 
 - name: Create and Activate Virtual Environment
-  cmd: "{{ item }}""
-  loop: 
+  command: "{{ item }}"
+  with_items: 
     - python3 -m venv myenv
     - source myenv/bin/activate
     - pip install Flask==2.0.2
