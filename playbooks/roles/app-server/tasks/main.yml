@@ -21,7 +21,7 @@
   with_items: 
     - python3 -m venv myenv
     - source myenv/bin/activate
-    - pip install Flask==2.0.2
+    - pip install Flask>=2.2.5
 
 
 # - name: Install Python dependencies from requirements.txt
