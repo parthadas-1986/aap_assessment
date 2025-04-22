@@ -1,6 +1,4 @@
 ---
-host: 
-var_files:
-
-roles:
-  
+- host: app
+  roles:
+    - app-server

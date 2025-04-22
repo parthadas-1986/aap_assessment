@@ -1,0 +1,39 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install dependencies
+  apt:
+    name:
+      - python3
+      - python3-pip      
+      - python3-venv
+    state: present
+
+- name: Install Python dependencies from requirements.txt
+  pip:
+    requirements: "flask_app/requirements.txt"
+
+- name: Create a systemd service for Flask app
+  copy:
+    dest: /etc/systemd/system/flask_app.service
+    content: |
+      [Unit]
+      Description=Flask App
+      After=network.target
+
+      [Service]
+      User=ubuntu
+      WorkingDirectory=flask_app
+      ExecStart=/usr/bin/python3 flask_app//app.py
+      Restart=always
+
+      [Install]
+      WantedBy=multi-user.target
+
+- name: Enable and start Flask app service
+  systemd:
+    name: flask_app.service
+    enabled: yes
+    state: started
