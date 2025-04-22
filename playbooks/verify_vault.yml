@@ -1,7 +1,6 @@
 ---
-- name: Verify Custom Execution Environment
-  hosts: app
-  gather_facts: false
+
+- hosts: app  
   var_files:
     - ../vault.yml
 
