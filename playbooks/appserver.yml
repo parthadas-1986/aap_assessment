@@ -1,4 +1,4 @@
 ---
 - hosts: app
   roles:
-    - app-server
+    - app-server2
