@@ -1,0 +1,16 @@
+---
+- name: Verify Custom Execution Environment
+  hosts: app
+  gather_facts: false
+  var_files:
+    - ../vault.yml
+
+  tasks:
+    - name: Show encrypted web admin password
+      debug:
+        var: secrets.web_admin_password 
+    - name: Show encrypted db conection string
+      debug:
+        var: secrets.web_admin_password
+      
+    
