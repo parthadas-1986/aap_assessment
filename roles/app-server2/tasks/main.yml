@@ -20,7 +20,7 @@
     mode: '0755'
 
 - name: Set up virtualenv
-  command: python3 -m mvenv /opt/flask_app/mvenv
+  command: python3 -m venv /opt/flask_app/mvenv
   args:
     creates: /opt/flask_app/mvenv
 
