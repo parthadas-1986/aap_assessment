@@ -16,25 +16,13 @@
 - name: Create and Activate Virtual Environment
   command: "{{ item }}"
   with_items:
-    # - python3 -m venv myenv
+    - python3 -m venv myenv
     - source myenv/bin/activate
-    - pip3 install gunicorn
 
-# - name: Install dependencies in virtualenv
-#   shell: |
-#     source myenv/bin/activate
-
-# - name: Install Gunicorn if not already installed
-#   pip:
-#     name: gunicorn
-#     executable: pip3
-
-# - name: Create and Activate Virtual Environment
-#   command: "{{ item }}"
-#   with_items: 
-#     - python3 -m venv myenv
-#     - source myenv/bin/activate
-#     - pip install Flask>=2.2.5
+- name: Install Gunicorn if not already installed
+  pip:
+    name: gunicorn
+    executable: pip3
 
 
 - name: Install Flask using pip3
@@ -65,23 +53,6 @@
   systemd:
     name: flask_app.service
     enabled: yes
-
-# - name: Create a systemd service for Flask app
-#   copy:
-#     dest: /etc/systemd/system/flask_app.service
-#     content: |
-#       [Unit]
-#       Description=Flask App
-#       After=network.target
-
-#       [Service]
-#       User=ubuntu
-#       WorkingDirectory=flask_app
-#       ExecStart=/usr/bin/python3 flask_app//app.py
-#       Restart=always
-
-#       [Install]
-#       WantedBy=multi-user.target
 
 - name: Enable and start Flask app service
   systemd:
